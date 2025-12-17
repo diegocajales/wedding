@@ -1,0 +1,113 @@
+<style>
+  :root {
+    --clamp-var: clamp(0px, 0.5vw, 10px);
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    background: #fff;
+    color: #1C1C1C;
+  }
+
+  /* ===== LAYOUT ===== */
+  .section {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr 1fr;
+    gap: calc(var(--clamp-var) * 4);
+    margin: calc(var(--clamp-var) * 4);
+  }
+
+  /* ===== SHARED COLUMN STRUCTURE ===== */
+  .col-split {
+    display: grid;
+    grid-template-rows: repeat(6, 1fr);
+    row-gap: calc(var(--clamp-var) * 2);
+  }
+
+  .text-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  /* =====================================================
+     COLUMN 1 — LEFT
+     ===================================================== */
+  .col-left .text-block {
+    align-items: flex-start;
+    text-align: left;
+    padding-left: calc(var(--clamp-var) * 6);
+  }
+
+  .col-left p {
+    font-size: calc(var(--clamp-var) * 1);
+    font-weight: 400;
+  }
+
+  /* =====================================================
+     COLUMN 2 — CENTER (highlight)
+     ===================================================== */
+  .col-center {
+    row-gap: calc(var(--clamp-var) * 1);
+  }
+
+  .col-center .text-block {
+    align-items: center;
+    text-align: center;
+  }
+
+  .col-center p {
+    font-size: calc(var(--clamp-var) * 1.2);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+
+  /* =====================================================
+     COLUMN 3 — RIGHT
+     ===================================================== */
+  .col-right .text-block {
+    align-items: flex-end;
+    text-align: right;
+    padding-right: calc(var(--clamp-var) * 6);
+  }
+
+  .col-right p {
+    font-size: calc(var(--clamp-var) * 0.95);
+    opacity: 0.85;
+  }
+</style>
+
+<div class="section">
+
+  <!-- COLUMN 1 -->
+  <div class="col-split col-left">
+    <div class="text-block"><p>Rua Carl Dettmer, 329</p></div>
+    <div class="text-block"><p>Blumenau / SC</p></div>
+    <div class="text-block"><p>CEP 89065-300</p></div>
+    <div class="text-block"><p>Brasil</p></div>
+    <div class="text-block"><p>Complemento A</p></div>
+    <div class="text-block"><p>Referência Norte</p></div>
+  </div>
+
+  <!-- COLUMN 2 -->
+  <div class="col-split col-center">
+    <div class="text-block"><p>LOCALIZAÇÃO</p></div>
+    <div class="text-block"><p>ENDEREÇO OFICIAL</p></div>
+    <div class="text-block"><p>MAPA & ACESSO</p></div>
+    <div class="text-block"><p>HORÁRIOS</p></div>
+    <div class="text-block"><p>CONTATO</p></div>
+    <div class="text-block"><p>INFORMAÇÕES</p></div>
+  </div>
+
+  <!-- COLUMN 3 -->
+  <div class="col-split col-right">
+    <div class="text-block"><p>Google Maps</p></div>
+    <div class="text-block"><p>Estacionamento</p></div>
+    <div class="text-block"><p>Acesso Fácil</p></div>
+    <div class="text-block"><p>Seg–Sex</p></div>
+    <div class="text-block"><p>08:00–18:00</p></div>
+    <div class="text-block"><p>Suporte</p></div>
+  </div>
+
+</div>

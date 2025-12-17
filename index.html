@@ -1,7 +1,53 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>O nosso casamento</title>
+
+  <style>
+    body {
+      margin: 0;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .section-frame {
+      width: 100%;
+      max-width: 900px;
+      border: none;
+      overflow: hidden;
+      display: block;
+      margin: 40px 0; /* espaçamento padrão entre seções */
+    }
+  </style>
+</head>
 <body>
-  <h1>Welcome to My Website!</h1>
-  <p>This is my first site hosted on GitHub Pages.</p>
+
+  <!-- Onde as seções vão ser inseridas -->
+  <div id="sections-container"></div>
+
+  <script>
+    // 🔁 Lista de seções: só mexe aqui
+    const sections = [
+      { src: "header.html",    height: 500 },
+      { src: "countdown.html", height: 350 },
+      { src: "galeria.html",   height: 600 },
+      { src: "local.html",     height: 450 },
+      // pode seguir adicionando:
+      // { src: "presentes.html", height: 400 },
+    ];
+
+    const container = document.getElementById("sections-container");
+
+    sections.forEach(section => {
+      const iframe = document.createElement("iframe");
+      iframe.className = "section-frame";
+      iframe.src = section.src;
+      iframe.style.height = section.height + "px";
+      container.appendChild(iframe);
+    });
+  </script>
 </body>
 </html>

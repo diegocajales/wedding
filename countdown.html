@@ -1,0 +1,192 @@
+<link href="https://fonts.cdnfonts.com/css/cheque" rel="stylesheet">
+
+<style>
+  :root {
+    /* GLOBAL VARIABLES — edit only these */
+    --clamp-var: clamp(0px, 1vw, 8px);
+  }
+
+  .countdown-wrapper {
+    margin: 0 auto;
+    width: calc(var(--clamp-var) * 90);
+  }
+
+  .countdown {
+    font-family: 'Cheque', serif;
+    justify-content: space-between;
+    color: #1C1C1C;
+    padding: 5px;
+  }
+
+  .countdown-wrapper,
+  .countdown-wrapper * {
+    box-sizing: border-box;
+  }
+
+  /* FIRST LINE: DAYS (FIXED) */
+  .days-row {
+    display: flex;
+    justify-content: space-between;      /* number left, DIAS right */
+    margin: 0 auto;                      /* ⬅ center the row */
+    align-items: baseline;
+    width: calc(var(--clamp-var) * 90);
+    margin-bottom: 1vw;
+  }
+
+  .days-number,
+  .days-label {
+    font-size: calc(var(--clamp-var) * 20);
+    letter-spacing: 0px;
+  }
+
+  .days-number {
+    flex: 1;
+    text-align: left;
+  }
+
+  .days-label {
+    flex: 1;
+    text-align: right;
+  }
+
+  /* Divider */
+  .divider {
+    width: calc(var(--clamp-var) * 90);
+    margin: 0 auto;
+    border-bottom: 2px solid #1C1C1C;
+  }
+
+  /* TIME BLOCK */
+  .time-block {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 1vw;
+    width: calc(var(--clamp-var) * 90);
+  }
+
+  .time-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: calc(var(--clamp-var) * 50);
+  }
+
+  .digits-row {
+    display: flex;
+    gap: calc(var(--clamp-var) * 1);  /* NEW: a bit of space between boxes */
+  }
+
+  .digit-box {
+    /* each digit has its own rounded rectangle */
+    width: calc(var(--clamp-var) * 7);       /* box width */
+    height: calc(var(--clamp-var) * 11);     /* box height */
+    border: 2px solid #1C1C1C;               /* rectangle border */
+    border-radius: calc(var(--clamp-var) * 2); /* rounded corners */
+    display: flex;                           /* center digit inside */
+    align-items: center;
+    justify-content: center;
+  }
+
+  .digit {
+    font-size: calc(var(--clamp-var) * 9);   /* slightly smaller to fit nicely */
+    letter-spacing: 0px;
+  }
+
+  .time-label {
+    font-size: calc(var(--clamp-var) * 3);
+    letter-spacing: 0px;
+    margin-top: 1vw;
+  }
+
+  .time-separator {
+    font-size: calc(var(--clamp-var) * 10);
+    letter-spacing: 0px;
+    display: flex;
+    align-items: center;
+  }
+</style>
+
+<div class="countdown-wrapper">
+  <div class="countdown">
+
+    <!-- FIRST LINE: number + DIAS -->
+    <div class="days-row">
+      <div class="days-number" id="daysNumber"></div>
+      <div class="days-label">DIAS</div>
+    </div>
+
+    <!-- Divider -->
+    <div class="divider"></div>
+
+    <!-- TIME BLOCK -->
+    <div class="time-block">
+
+      <!-- HOURS -->
+      <div class="time-group">
+        <div class="digits-row">
+          <div class="digit-box"><div class="digit" id="hourDigit1">0</div></div>
+          <div class="digit-box"><div class="digit" id="hourDigit2">0</div></div>
+        </div>
+        <div class="time-label">HORAS</div>
+      </div>
+
+      <div class="time-separator">:</div>
+
+      <!-- MINUTES -->
+      <div class="time-group">
+        <div class="digits-row">
+          <div class="digit-box"><div class="digit" id="minDigit1">0</div></div>
+          <div class="digit-box"><div class="digit" id="minDigit2">0</div></div>
+        </div>
+        <div class="time-label">MINUTOS</div>
+      </div>
+
+      <div class="time-separator">:</div>
+
+      <!-- SECONDS -->
+      <div class="time-group">
+        <div class="digits-row">
+          <div class="digit-box"><div class="digit" id="secDigit1">0</div></div>
+          <div class="digit-box"><div class="digit" id="secDigit2">0</div></div>
+        </div>
+        <div class="time-label">SEGUNDOS</div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const target = new Date("2026-10-10T16:00:00").getTime();
+
+  setInterval(() => {
+    const now = new Date().getTime();
+    const diff = target - now;
+
+    if (diff < 0) {
+      document.getElementById("daysNumber").textContent = 0;
+      ["hourDigit1","hourDigit2","minDigit1","minDigit2","secDigit1","secDigit2"]
+        .forEach(id => document.getElementById(id).textContent = "0");
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = String(Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+    const minutes = String(Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+    const seconds = String(Math.floor((diff % (1000 * 60)) / 1000)).padStart(2, '0');
+
+    document.getElementById("daysNumber").textContent = days;
+
+    document.getElementById("hourDigit1").textContent = hours[0];
+    document.getElementById("hourDigit2").textContent = hours[1];
+
+    document.getElementById("minDigit1").textContent = minutes[0];
+    document.getElementById("minDigit2").textContent = minutes[1];
+
+    document.getElementById("secDigit1").textContent = seconds[0];
+    document.getElementById("secDigit2").textContent = seconds[1];
+
+  }, 1000);
+</script>
